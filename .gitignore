@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
 
+### Arquivos de texto criados por mim ###
+comandos.txt
+requirements.txt
+
 ### Django ###
 *.log
 *.pot
