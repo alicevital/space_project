@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
-from usuarios.forms import LoginForms, CadastroForms
+from apps.usuarios.forms import LoginForms, CadastroForms
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
 # Create your views here.
 
-def login(request):
+def login(request): 
     form = LoginForms()
 
     if request.method == 'POST':
@@ -21,7 +21,6 @@ def login(request):
         if usuario is not None:
             auth.login(request, usuario)
             messages.success(request, "Usuário logado com sucesso!")
-
             return redirect('index')
         else:
             messages.error(request, "Erro ao efetuar login!")
