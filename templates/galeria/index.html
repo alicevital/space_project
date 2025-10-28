@@ -42,7 +42,7 @@
                     <a href="{% url 'login' %}"><img src="{% static '/assets/icones/1x/Mais vistas - inativo.png' %}"> Login</a>
                     <a href="{% url 'cadastro' %}"><img src="{% static '/assets/icones/1x/Novas - inativo.png' %}"> Cadastrar-se</a>
                     <a href="{% url 'logout' %}"><img src="{% static '/assets/icones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
-                    <a href=""><img src="{% static '/assets/icones/1x/Surpreenda-me - inativo.png' %}"> Nova Imagem</a>
+                    <a href="{% url 'nova_imagem' %}"><img src="{% static '/assets/icones/1x/Surpreenda-me - inativo.png' %}"> Nova Imagem</a>
                 </nav>
             </section>
             <section class="conteudo">
@@ -53,10 +53,10 @@
                 <section class="tags">
                     <p class="tags__titulo">Busque por tags:</p>
                     <ul class="tags__lista">
-                        <li class="tags__tag">Nebulosa</li>
-                        <li class="tags__tag">Estrela</li>
-                        <li class="tags__tag">Galáxia</li>
-                        <li class="tags__tag">Planeta</li>
+                        <li class="tags__tag"><a href="{% url 'filtro' 'NEBULOSA' %}" class="btn" style="color: #c9c9c9;">NEBULOSA</a></li>
+                        <li class="tags__tag"><a href="{% url 'filtro' 'ESTRELA' %}" class="btn" style="color: #c9c9c9;">ESTRELA</a></li>
+                        <li class="tags__tag"><a href="{% url 'filtro' 'GALAXIA' %}" class="btn" style="color: #c9c9c9;">GALÁXIA</a></li>
+                        <li class="tags__tag"><a href="{% url 'filtro' 'PLANETA' %}" class="btn" style="color: #c9c9c9;">PLANETA</a></li>
                     </ul>
                 </section>
                 <section class="galeria">

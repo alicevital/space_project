@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -6,22 +7,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lib Space</title>
+    <title>Alura Space</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static '/styles/style.css' %}">
-
 </head>
 
 <body>
     <div class="pagina-inicial">
         <header class="cabecalho">
             <img src="{% static '/assets/logo/Logo(2).png' %}" alt="Logo da Alura Space" />
+            {% for message in messages %}
+            <div class="alert alert-primary">
+            {{message}}
+            </div>
+            {% endfor %}
             <div class="cabecalho__busca">
                 <div class="busca__fundo">
-                    <input class="busca__input" type="text" placeholder="O que você procura?">
-                    <img class="busca__icone" src="{% static '/assets/icones/1x/search.png' %}" alt="ícone de search">
+                    <form action="{% url 'buscar' %}">
+                        <input  class="busca__input" type="text" name="buscar" placeholder="O que você procura?">
+                        <button type="submit">
+                            <img class="busca__icone" src="{% static '/assets/icones/1x/search.png' %}" alt="ícone de search">
+                        </button>
+                    </form>
                 </div>
             </div>
         </header>
@@ -30,36 +40,30 @@
                 <nav class="menu-lateral__navegacao">
                     <a href="{% url 'index' %}"><img src="{% static '/assets/icones/1x/Home - ativo.png' %}"> Home</a>
                     <a href="{% url 'login' %}"><img src="{% static '/assets/icones/1x/Mais vistas - inativo.png' %}"> Login</a>
-                    <a href="{% url 'cadastro' %}"><img src="{% static '/assets/icones/1x/Novas - inativo.png' %}"> Cadastrar-se</a>
+                    <a href="{% url 'cadastro' %}"><img src="{% static '/assets/icones/1x/Novas - inativo.png' %}"> Cadastrar</a>
                     <a href="{% url 'logout' %}"><img src="{% static '/assets/icones/1x/Surpreenda-me - inativo.png' %}"> Logout</a>
                     <a href="{% url 'nova_imagem' %}"><img src="{% static '/assets/icones/1x/Surpreenda-me - inativo.png' %}"> Nova Imagem</a>
                 </nav>
             </section>
-            <section class="conteudo">
-                <section class="imagem">
-                    <div class="imagem__conteudo">
-                        {% if fotografia.foto == "" or fotografia.foto == null %}
-                        <img class="imagem__imagem" src="{% static '/assets/imagens/galeria/not-found.png'%}">
-                        {% else %}
-                        <img class="imagem__imagem" src="{{ fotografia.foto.url }}">
-                        {% endif %}
-                        <div class="imagem__info">
-                            <div class="imagem__texto">
-                                <p class="imagem__titulo">{{ fotografia.nome }}</p>
-                                <p class="imagem__descricao">{{ fotografia.legenda }}</p>
-                                <p class="imagem__texto">{{ fotografia.descricao }}</p>
-                            </div>
-                            <div>
-                                <a href="{% url 'editar_imagem' fotografia.id %}"><button class="btn btn-success col-12" style="padding: top 5px;">Editar</button></a>
-                                <a href="{% url 'deletar_imagem' fotografia.id %}"><button class="btn btn-success col-12" style="padding: top 5px;">Excluir</button></a>
-                            </div>
+            <section class="galeria" style="margin-left: 5em">
+                <form action="{% url 'nova_imagem' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        {% for field in form.visible_fields %}
+                        <div class="col-12 col-lg-12" style="margin-bottom: 10px;">
+                            <label for="{{ field.id_for_label }}" style="color:#D9D9D9; margin-bottom: 5px;">{{field.label}}</label>
+                            {{field}}
                         </div>
+                        {% endfor %}
                     </div>
-                </section>
+                    <div>
+                        <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Cadastrar Fotografia</button>
+                    </div>
+                </form>
             </section>
         </main>
     </div>
-    <footer class="rodape">
+     <footer class="rodape">
         <div class="rodape__icones">
             <a href="https://twitter.com/AluraOnline" target=”_blank” >
                 <img src="{% static '/assets/icones/1x/twitter.png' %}" alt="ícone twitter">
@@ -71,5 +75,3 @@
         <p class="rodape__texto">Desenvolvido por Alice Nascimento</p>
     </footer>
 </body>
-
-</html>
